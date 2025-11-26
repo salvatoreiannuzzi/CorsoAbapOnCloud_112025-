@@ -1,0 +1,56 @@
+@Metadata.layer: #CORE
+// Annotation per la testata della seconda schermata
+@UI.headerInfo: {
+    typeName: 'Biglietto',
+    typeNamePlural: 'Biglietti',
+    title: {
+        type: #STANDARD,
+        criticalityRepresentation: #WITHOUT_ICON,
+        label: 'ID Biglietto',
+        value: 'idbiglietto'
+    },
+    description: {
+        type: #STANDARD,
+        criticalityRepresentation: #WITHOUT_ICON,
+        label: 'ID Biglietto',
+//        value: 'idbiglietto'
+        value: 'modificatoda'
+    }
+}
+annotate view zc_biglietto_si
+    with 
+{
+
+
+
+// Ui.facet è l'annotation per la schermata di dettaglio'
+@UI.facet: [{ label: 'General Information',
+              id: 'GeneralInfo',
+              purpose: #STANDARD,
+              position: 10, 
+              type: #IDENTIFICATION_REFERENCE }]
+
+
+// UI.Identification serve per dichiarare i campi da vedere nel dettaglio della seconda schermata
+@UI.identification: [{ position: 10 }]              
+@UI.selectionField: [{position: 10 } ]
+@EndUserText.label: 'ID Biglietto'
+@UI.lineItem: [{ position: 10, emphasized: true }]
+    idbiglietto;
+@UI.selectionField: [{position: 20 }]
+@UI.lineItem: [{ position: 20, emphasized: true }]
+@UI.identification: [{ position: 20 }]  
+    creatoda;
+@UI.selectionField: [{position: 40 }]    
+@UI.lineItem: [{ position: 30
+                  }]
+    creatoil;
+@UI.selectionField: [{position: 50 }]    
+    modificatoda;
+@UI.selectionField: [{position: 30 }]    
+    modificatoil;
+@UI.hidden: true
+@UI.selectionField: [{position: 60 }]    
+    modificato;
+    
+}

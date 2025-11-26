@@ -20,7 +20,10 @@ CLASS zcl_hello_rap_si IMPLEMENTATION.
 METHOD TEST_SI.
     DATA lv_test TYPE string.
     DATA lv_concat TYPE string VALUE 'CHIST'.
+
     rv_value = | { IV_INPUT } { lv_concat } |.
+
+    select * from I_ABAPCloudCustomObjects into tABLE  @data(lt_table).
 
 ENDMETHOD.
 
