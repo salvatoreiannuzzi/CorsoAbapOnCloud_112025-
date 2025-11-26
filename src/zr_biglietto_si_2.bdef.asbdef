@@ -3,25 +3,27 @@ strict ( 2 );
 with draft;
 extensible;
 define behavior for ZR_BIGLIETTO_SI_2 alias Biglietto2
-persistent table ZBIGLIETTO_SI_2
+persistent table zbiglietto_si_2
 extensible
-draft table ZBGLIETTO_SI_2_D
+draft table zbglietto_si_2_d
 etag master Locallastchanged
 lock master total etag ModificatoIl
-authorization master( global )
+authorization master ( global )
+early numbering
 {
-  field ( mandatory : create )
-   IdBiglietto;
+//  field ( mandatory : create )
+//  IdBiglietto;
 
   field ( readonly )
-   CreatoDa,
-   CreatoIl,
-   ModificatoDa,
-   ModificatoIl,
-   Locallastchanged;
+  CreatoDa,
+  CreatoIl,
+  ModificatoDa,
+  ModificatoIl,
+  Locallastchanged;
 
-  field ( readonly : update )
-   IdBiglietto;
+//  field ( readonly : update )
+field ( readonly )
+  IdBiglietto;
 
 
   create;
@@ -34,14 +36,14 @@ authorization master( global )
   draft action Resume;
   draft determine action Prepare;
 
-  mapping for ZBIGLIETTO_SI_2 corresponding extensible
-  {
-    IdBiglietto = id_biglietto;
-    CreatoDa = creato_da;
-    CreatoIl = creato_il;
-    ModificatoDa = modificato_da;
-    ModificatoIl = modificato_il;
-    Locallastchanged = locallastchanged;
-  }
+  mapping for zbiglietto_si_2 corresponding extensible
+    {
+      IdBiglietto      = id_biglietto;
+      CreatoDa         = creato_da;
+      CreatoIl         = creato_il;
+      ModificatoDa     = modificato_da;
+      ModificatoIl     = modificato_il;
+      Locallastchanged = locallastchanged;
+    }
 
 }
