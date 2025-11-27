@@ -15,16 +15,42 @@ annotate view ZC_BIGLIETTO_SI_2 with
   } ]
   @UI.identification: [ {
     position: 10 , 
-    label: 'IdBiglietto'
-  } ]
+    label: 'IdBiglietto'    
+  },
+  
+   { position: 10,    
+    type: #FOR_ACTION,
+    dataAction: 'customdelete',
+    label: 'Logic Deletion'    
+    
+   }  ]
   @UI.lineItem: [ {
     position: 10 , 
-    label: 'IdBiglietto'
-  } ]
+    label: 'IdBiglietto'   
+  }, 
+  { position: 10,    
+    type: #FOR_ACTION,
+    dataAction: 'customdelete',
+    label: 'Logic Deletion'    
+    
+   } ]
   @UI.selectionField: [ {
     position: 10 
   } ]
   IdBiglietto;
+  @UI.identification: [ {
+    position: 11
+  
+  } ]
+@EndUserText.label: 'Stato'
+    @UI.lineItem: [ {
+    position: 11 , 
+    label: 'Stato'
+  } ]
+  @UI.selectionField: [ {
+    position: 11 
+  } ]    
+  stato;   
   
   @UI.identification: [ {
     position: 20 

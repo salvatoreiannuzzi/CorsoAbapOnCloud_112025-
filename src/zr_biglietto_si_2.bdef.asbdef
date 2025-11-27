@@ -14,6 +14,9 @@ early numbering
 //  field ( mandatory : create )
 //  IdBiglietto;
 
+field(features : instance)
+stato;
+
   field ( readonly )
   CreatoDa,
   CreatoIl,
@@ -25,20 +28,29 @@ early numbering
 field ( readonly )
   IdBiglietto;
 
-
-  create;
+ create {default function GetDefaultsForCreate;}
+//  create;
   update;
   delete;
+
+// azioni, sono dei bottoncini aggiuntivi per delle azioni custom
+// con il feature: Instance Features andiamo a disattivare le funzonalita\pulsantino
+action ( features: instance ) customdelete  result [1] $self;
 
   draft action Activate optimized;
   draft action Discard;
   draft action Edit;
   draft action Resume;
-  draft determine action Prepare;
+  draft determine action Prepare { validation checkstatus; }
 
+
+
+validation checkstatus on save { field stato;  }
+determination changestatus on save { create;  }
   mapping for zbiglietto_si_2 corresponding extensible
     {
       IdBiglietto      = id_biglietto;
+      stato             = stato;
       CreatoDa         = creato_da;
       CreatoIl         = creato_il;
       ModificatoDa     = modificato_da;
