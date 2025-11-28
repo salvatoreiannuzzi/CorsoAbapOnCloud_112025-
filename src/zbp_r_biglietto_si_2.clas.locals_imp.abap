@@ -16,7 +16,9 @@ CLASS lhc_zr_biglietto_si_2 DEFINITION INHERITING FROM cl_abap_behavior_handler.
       changestatus FOR DETERMINE ON SAVE
         IMPORTING keys FOR Biglietto2~changestatus,
       customdelete FOR MODIFY
-        IMPORTING keys FOR ACTION Biglietto2~customdelete RESULT result.
+        IMPORTING keys FOR ACTION Biglietto2~customdelete RESULT result,
+      earlynumbering_cba_Componenti FOR NUMBERING
+        IMPORTING entities FOR CREATE Biglietto2\_Componenti.
 ENDCLASS.
 
 CLASS lhc_zr_biglietto_si_2 IMPLEMENTATION.
@@ -221,6 +223,41 @@ CLASS lhc_zr_biglietto_si_2 IMPLEMENTATION.
 *      INSERT VALUE #( %tky = ls_biglietto-%tky
 *                     %param = ls_biglietto ) INTO TABLE result.
 *    ENDLOOP.
+
+  ENDMETHOD.
+
+  METHOD earlynumbering_cba_Componenti.
+
+
+    READ ENTITIES OF zr_biglietto_si_2
+        IN LOCAL MODE
+        ENTITY Biglietto2 BY \_Componenti
+        FIELDS ( Progressivo )
+        WITH
+        VALUE #( FOR line
+            IN entities
+            (
+                IdBiglietto = line-IdBiglietto
+                %is_draft   = line-%is_draft
+            )
+             ) RESULT DATA(lt_progressivo).
+
+    SELECT MAX( progressivo ) FROM :@lt_progressivo AS lt_progressivo
+    INTO @DATA(lv_max_progr).
+
+    DATA ls_componenti LIKE LINE OF mapped-componenti.
+
+
+    LOOP AT entities INTO DATA(ls_entities).
+      LOOP AT ls_entities-%target INTO DATA(ls_target).
+        lv_max_progr += 1.
+        ls_componenti-%cid = ls_target-%cid.
+        ls_componenti-%is_draft = ls_target-%is_draft.
+        ls_componenti-Progressivo = lv_max_progr.
+        ls_componenti-IdBiglietto = ls_target-IdBiglietto.
+        APPEND ls_componenti TO mapped-componenti.
+      ENDLOOP.
+    ENDLOOP.
 
   ENDMETHOD.
 

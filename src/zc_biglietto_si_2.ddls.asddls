@@ -44,5 +44,6 @@ define root view entity ZC_BIGLIETTO_SI_2
     systemDateTime.localInstanceLastChangedAt: true
   }
   Locallastchanged,
-  _BaseEntity
+  _BaseEntity,
+  _componenti  : redirected to composition child ZC_COMPONENTI_SI
 }

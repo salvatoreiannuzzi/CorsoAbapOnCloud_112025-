@@ -3,12 +3,10 @@
 {
 "FROM":
 [
-"ZBIGLIETTO_SI_2"
+"ZTIPO_UTENTE_SI"
 ],
 "ASSOCIATED":
-[
-"ZR_COMPONENTI_SI"
-],
+[],
 "BASE":
 [],
 "ANNO_REF":

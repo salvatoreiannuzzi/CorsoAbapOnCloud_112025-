@@ -11,11 +11,11 @@ lock master total etag ModificatoIl
 authorization master ( global )
 early numbering
 {
-//  field ( mandatory : create )
-//  IdBiglietto;
+  //  field ( mandatory : create )
+  //  IdBiglietto;
 
-field(features : instance)
-stato;
+  field ( features : instance )
+  stato;
 
   field ( readonly )
   CreatoDa,
@@ -24,18 +24,18 @@ stato;
   ModificatoIl,
   Locallastchanged;
 
-//  field ( readonly : update )
-field ( readonly )
+  //  field ( readonly : update )
+  field ( readonly )
   IdBiglietto;
 
- create {default function GetDefaultsForCreate;}
-//  create;
+  create { default function GetDefaultsForCreate; }
+  //  create;
   update;
   delete;
 
-// azioni, sono dei bottoncini aggiuntivi per delle azioni custom
-// con il feature: Instance Features andiamo a disattivare le funzonalita\pulsantino
-action ( features: instance ) customdelete  result [1] $self;
+  // azioni, sono dei bottoncini aggiuntivi per delle azioni custom
+  // con il feature: Instance Features andiamo a disattivare le funzonalita\pulsantino
+  action ( features : instance ) customdelete result [1] $self;
 
   draft action Activate optimized;
   draft action Discard;
@@ -43,19 +43,70 @@ action ( features: instance ) customdelete  result [1] $self;
   draft action Resume;
   draft determine action Prepare { validation checkstatus; }
 
+  association _componenti { create; with draft; }
 
-
-validation checkstatus on save { field stato;  }
-determination changestatus on save { create;  }
+  validation checkstatus on save { field stato; }
+  determination changestatus on save { create; }
   mapping for zbiglietto_si_2 corresponding extensible
     {
       IdBiglietto      = id_biglietto;
-      stato             = stato;
+      stato            = stato;
       CreatoDa         = creato_da;
       CreatoIl         = creato_il;
       ModificatoDa     = modificato_da;
       ModificatoIl     = modificato_il;
       Locallastchanged = locallastchanged;
+    }
+
+}
+define behavior for ZR_COMPONENTI_SI alias componenti
+persistent table zcomponenti_si
+extensible
+draft table zcomponenti_si_d
+etag dependent by _biglietto
+lock dependent
+early numbering
+//authorization master( global )
+authorization dependent
+{
+//  field ( mandatory : create )
+  //   IdBiglietto,
+//  Progressivo;
+
+  field ( readonly )
+  IdBiglietto,
+  Progressivo,
+  CreatoDa,
+  CreatoIl,
+  ModificatoDa,
+  ModificatoIl;
+
+//  field ( readonly : update )
+  //   IdBiglietto,
+//  Progressivo;
+
+
+  //  create;
+  update;
+  delete;
+
+  //  draft action Activate optimized;
+  //  draft action Discard;
+  //  draft action Edit;
+  //  draft action Resume;
+  //  draft determine action Prepare;
+
+  association _biglietto { with draft; }
+
+  mapping for zcomponenti_si corresponding extensible
+    {
+      IdBiglietto  = id_biglietto;
+      Progressivo  = progressivo;
+      Tipoutente   = tipoutente;
+      CreatoDa     = creato_da;
+      CreatoIl     = creato_il;
+      ModificatoDa = modificato_da;
+      ModificatoIl = modificato_il;
     }
 
 }
